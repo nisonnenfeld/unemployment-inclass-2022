@@ -10,3 +10,5 @@ requests
 plotly
 
 statistics
+
+pytest
