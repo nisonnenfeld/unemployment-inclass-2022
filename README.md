@@ -1,5 +1,7 @@
 # unemployment-inclass-2022
 
+## PLEASE NOTE
+I added "if __name__ == "__main__":" to unemployment.py, noticing that I hadn't changed it like the others, but then ran pytest only to find it created more errors than the one I had trouble diagnosing. I've troubleshooted the key error, trying anything I could think of over several hours, all to no avail.
 
 ## Setup
 
