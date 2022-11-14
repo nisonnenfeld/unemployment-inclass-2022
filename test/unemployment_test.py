@@ -11,7 +11,7 @@ def test_fetch_data():
     # this function will return a list of datapoints
     output = fetch_unemployment_data()
     assert isinstance(output, list)
-
+    print("OUTPUT")
     # Challenge A seems to take the first item and print its value and date keys
     # the latest values and dates will change, so we can't test the exact values in this case
     # but we can at least test the structure:
