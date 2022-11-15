@@ -50,7 +50,14 @@ python app/unemployment.py
 # or pass env var from command line:
 ALPHAVANTAGE_API_KEY="______" python app/unemployment.py
 ```
+run the web app (then view in the browser at http://localhost:5000/)
 
+```sh
+# Mac flask launch server
+FLASK_APP=web_app flask run
 
+# testing
 run tests:
 pytest
+
+```

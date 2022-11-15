@@ -12,3 +12,8 @@ plotly
 statistics
 
 pytest
+
+sendgrid==6.6.0
+
+# for web app interface
+flask
