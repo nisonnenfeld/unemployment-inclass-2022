@@ -8,7 +8,7 @@ unemployment_routes = Blueprint("unemployment_routes", __name__)
 @unemployment_routes.route("/unemployment/dashboard")
 def unemployment_dashboard():
     print("UNEMPLOYMENT DASHBOARD...")
-
+    
     try:
         data = fetch_unemployment_data()
         latest = data[0]
@@ -16,6 +16,8 @@ def unemployment_dashboard():
         latest_date = latest["date"]
 
         #flash("Fetched Latest Unemployment Data!", "success")
+        
+        # rendering the html template with the relevant data from unemployment app
         return render_template("unemployment_dashboard.html",
             latest_rate_pct=latest_rate_pct,
             latest_date=latest_date,
