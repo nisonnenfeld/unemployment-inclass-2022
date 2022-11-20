@@ -1,12 +1,12 @@
-
-# this is the "app/unemployment_report.py" file...
 import json
 from pprint import pprint
-import statistics
+from statistics import mean
 
 import requests
-import plotly.express as px
+from plotly.express import line
+
 from app.alpha import API_KEY
+
 
 def format_pct(my_number):
     """
@@ -25,44 +25,54 @@ def fetch_unemployment_data():
     response = requests.get(request_url)
 
     parsed_response = json.loads(response.text)
+    #print(type(parsed_response))
+    #pprint(parsed_response)
 
+    # TODO: consider converting string rates to floats before returning the data
+    # TODO: consider creating and returning a pandas DataFrame, if you like that kind of thing
     return parsed_response["data"]
 
 
 
-# Challenge A
-#
-# What is the most recent unemployment rate? And the corresponding date?
-# Display the unemployment rate using a percent sign.
+if __name__ == "__main__":
 
-data = fetch_unemployment_data()
-print()
-print("CURRENT UNEMPLOYMENT RATE:")
-print(data[0]["value"]+ "%", "as of", data[0]["date"])
+    print("UNEMPLOYMENT REPORT...")
 
-# Challenge B
-# 
-# What is the average unemployment rate for all months during this calendar year?
-# ... How many months does this cover?
+    data = fetch_unemployment_data()
 
- 
-print()
 
-this_year = [d for d in data if "2022-" in d["date"]]
-currentRates = [float(d["value"]) for d in this_year]
-    
-print("AVERAGE UNEMPLOYMENT THIS YEAR:", format_pct(statistics.mean(currentRates)))
-print("Number of months:",len(this_year))
-print()
+    # Challenge A
+    #
+    # What is the most recent unemployment rate? And the corresponding date?
+    # Display the unemployment rate using a percent sign.
 
-# Challenge C
-# 
-# Plot a line chart of unemployment rates over time.
+    print("-------------------------")
+    print("LATEST UNEMPLOYMENT RATE:")
+    #print(data[0])
+    print(f"{data[0]['value']}%", "as of", data[0]["date"])
 
-dates = [d["date"] for d in data]
-values = [float(d["value"]) for d in data]
-print("LOADING CHART OF UNEMPLOYMENT OVER TIME...")
-print()
-fig = px.line(x=dates, y=values)
-fig.update_layout(title="Unemployment Over Time",yaxis_title=f"Unemployment",xaxis_title="Date",yaxis_ticksuffix='%')
-fig.show()
+
+    # Challenge B
+    #
+    # What is the average unemployment rate for all months during this calendar year?
+    # ... How many months does this cover?
+
+    this_year = [d for d in data if "2022-" in d["date"]]
+
+    rates_this_year = [float(d["value"]) for d in this_year]
+    #print(rates_this_year)
+
+    print("-------------------------")
+    print("AVG UNEMPLOYMENT THIS YEAR:", format_pct(mean(rates_this_year)))
+    print("NO MONTHS:", len(this_year))
+
+
+    # Challenge C
+    #
+    # Plot a line chart of unemployment rates over time.
+
+    dates = [d["date"] for d in data]
+    rates = [float(d["value"]) for d in data]
+
+    fig = line(x=dates, y=rates, title="United States Unemployment Rate over time", labels= {"x": "Month", "y": "Unemployment Rate"})
+    fig.show()
