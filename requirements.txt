@@ -17,7 +17,8 @@ sendgrid==6.6.0
 
 # for web app interface
 flask
-    #heroku:
+
+#heroku:
 gunicorn
 
 # using bsoup in testing the web app:
